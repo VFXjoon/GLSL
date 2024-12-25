@@ -1,0 +1,32 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265
+uniform vec2 u_resolution;
+
+float plot(vec2 st, float p){
+    return smoothstep(p-0.02, p, st.y)-
+        smoothstep(p,p+0.02, st.y);
+}
+
+vec3 colorA = vec3(0.386,0.805,0.442);
+vec3 colorB = vec3(0.298,0.227,0.400)
+    ;
+void main(){
+	vec2 sc=gl_FragCoord.xy/u_resolution;
+    float t= sc.x;
+    float line = plot(sc,t);
+    
+    float line_x = pow(t,1.) ;
+	float line_y = sin(t*PI);
+   float line_z = pow(t,0.5) ;
+    
+    vec3 color =mix(colorA,colorB,t);
+    
+    color =mix(color, vec3(1.,0.,0.),plot(sc, line_x));
+    color = mix(color, vec3(0.,1.,0.),plot(sc,line_y));
+    color =mix(color, vec3(0.,0.,1.),plot(sc,line_z));
+    
+    gl_FragColor=vec4(color,1.); 
+}

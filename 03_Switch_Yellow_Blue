@@ -1,0 +1,15 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+vec3 yellow, blue;
+void main(){
+    
+    yellow.rg=vec2(1.);
+    blue.b=1.;
+    vec3 color = mix(yellow, blue, abs(sin(u_time)));
+    gl_FragColor = vec4(color, 1.);
+}
