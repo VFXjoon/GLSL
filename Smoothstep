@@ -1,0 +1,20 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+​
+​
+uniform vec2 u_resolution;
+    
+​
+float plot(vec2 st, float p){
+    return smoothstep(p-0.01, p, st.y)-
+        smoothstep(p,p+0.02, st.y);
+}
+    
+void main(){
+    vec2 sc=gl_FragCoord.xy/u_resolution;
+    float h= pow(sc.x,5.);
+    float pp=plot(sc,h);
+    vec3 color = vec3(h)+pp*vec3(0,1.,0);
+    gl_FragColor=vec4(color,1.);
+}
