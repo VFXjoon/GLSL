@@ -1,0 +1,21 @@
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.1415
+
+
+uniform vec2 u_resolution;
+uniform float u_time;
+
+vec3 colorA=vec3(0.745,0.283,0.147);
+vec3 colorB=vec3(1.,1.,1.);
+void main(){
+        
+    vec2 sc=gl_FragCoord.xy/u_resolution;
+    vec3 color = vec3(sc,1.);
+    
+    color = mix(color, colorA, sin(u_time)*PI);
+    
+    gl_FragColor = vec4(color,1.);
+}
